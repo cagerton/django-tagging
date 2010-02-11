@@ -254,10 +254,10 @@ def calculate_cloud(tags, steps=4, distribution=LOGARITHMIC):
         max_weight = float(max(counts))
         thresholds = _calculate_thresholds(min_weight, max_weight, steps)
         for tag in tags:
-            font_set = False
             tag_weight = _calculate_tag_weight(tag.count, max_weight, distribution)
             for i in range(steps):
-                if not font_set and tag_weight <= thresholds[i]:
+                if tag_weight <= thresholds[i] or steps == i+1:
                     tag.font_size = i + 1
-                    font_set = True
+                    break
+            
     return tags

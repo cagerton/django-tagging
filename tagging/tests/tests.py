@@ -168,6 +168,19 @@ class TestNormalisedTagListInput(TestCase):
     def test_nonexistent_tag(self):
         self.assertEquals(get_tag('mouse'), None)
 
+class TestCalculateCloudRegression(TestCase):
+    def setUp(self):
+        self.tags = [Tag(name='a'), Tag(name='b')]
+        self.tags[0].count=1
+        self.tags[0].count=22
+
+    def TestAssertAllTagsHaveSizes(self):
+        out=calculate_cloud(self.tags, steps=5)
+        assertHasattr('font_size',out[0])
+        assertHasattr('font_size',out[1])
+        assert(out[1].size == 5)
+        assert(out[0].size == 3)
+
 class TestCalculateCloud(TestCase):
     def setUp(self):
         self.tags = []
